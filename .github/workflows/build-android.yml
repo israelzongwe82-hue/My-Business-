@@ -1,4 +1,4 @@
-name: Construire My Business pour Android
+name: Build My Business for Android
 
 on:
 workflow_dispatch:
@@ -21,43 +21,49 @@ contents: read
 
 jobs:
 build-android:
-name: Construire l'APK Android
+name: Build Android APK
 runs-on: ubuntu-latest
 
 steps:
-  - name: Télécharger le dépôt
+  - name: Checkout repository
     uses: actions/checkout@v4
 
-  - name: Installer Node.js
+  - name: Setup Node.js
     uses: actions/setup-node@v4
     with:
       node-version: 22
 
-  - name: Installer Java
+  - name: Setup Java
     uses: actions/setup-java@v4
     with:
       distribution: temurin
       java-version: "21"
 
-  - name: Installer les dépendances
+  - name: Install dependencies
     run: npm install
 
-  - name: Vérifier les images originales
+  - name: Check original images
     run: |
       test -f images/icon.png
       test -f images/splash.png
 
-  - name: Installer ImageMagick
+  - name: Install ImageMagick
     run: |
       sudo apt-get update
       sudo apt-get install -y imagemagick
 
-  - name: Préparer les images Android
+  - name: Prepare Android image assets
     run: |
       mkdir -p assets
 
-      cp images/icon.png assets/icon-only.png
-      cp images/icon.png assets/icon-foreground.png
+      convert images/icon.png \
+        -resize 1024x1024 \
+        -background '#1565c0' \
+        -gravity center \
+        -extent 1024x1024 \
+        assets/icon-only.png
+
+      cp assets/icon-only.png assets/icon-foreground.png
 
       convert -size 1024x1024 xc:'#1565c0' \
         assets/icon-background.png
@@ -69,25 +75,25 @@ steps:
         -extent 2732x2732 \
         assets/splash.png
 
-  - name: Installer le générateur de ressources
+  - name: Install Capacitor Assets
     run: npm install --save-dev @capacitor/assets
 
-  - name: Ajouter la plateforme Android
+  - name: Add Android platform
     run: npx cap add android
 
-  - name: Générer les icônes et le splash natifs
+  - name: Generate native icons and splash
     run: npx capacitor-assets generate --android
 
-  - name: Synchroniser Capacitor
+  - name: Sync Capacitor
     run: npx cap sync android
 
-  - name: Construire l'APK
+  - name: Build APK
     run: |
       cd android
       chmod +x gradlew
       ./gradlew assembleDebug
 
-  - name: Publier l'APK
+  - name: Upload APK
     uses: actions/upload-artifact@v4
     with:
       name: My-Business-Android-APK
