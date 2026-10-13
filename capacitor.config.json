@@ -1,8 +1,7 @@
 {
 "appId": "cd.mybusiness.app",
 "appName": "My Business",
-"webDir": ".",
-"bundledWebRuntime": false,
+"webDir": "www",
 "backgroundColor": "#1565c0",
 "server": {
 "androidScheme": "https"
