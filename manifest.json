@@ -1,0 +1,32 @@
+{
+  "id": "./",
+  "name": "My Business",
+  "short_name": "My Business",
+  "description": "My Business : application de gestion commerciale hors ligne pour les commerçants et les entrepreneurs.",
+  "lang": "fr",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "theme_color": "#1565c0",
+  "background_color": "#ffffff",
+  "categories": [
+    "business",
+    "finance",
+    "productivity"
+  ],
+  "icons": [
+    {
+      "src": "images/icon.png",
+      "sizes": "any",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "images/icon.png",
+      "sizes": "any",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

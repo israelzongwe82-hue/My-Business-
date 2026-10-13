@@ -1,0 +1,533 @@
+/* =========================================
+   MY BUSINESS — STYLE PRINCIPAL
+   ========================================= */
+
+:root {
+    --primary-color: #1565c0;
+    --primary-dark: #0d47a1;
+    --primary-light: #e3f2fd;
+
+    --background-color: #f4f7fb;
+    --surface-color: #ffffff;
+    --text-color: #202124;
+    --secondary-text: #5f6368;
+    --border-color: #d9e0e8;
+
+    --success-color: #2e7d32;
+    --danger-color: #c62828;
+
+    --font-scale: 1;
+    --header-text-color: #ffffff;
+
+    --radius: 12px;
+    --shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    font-size: calc(16px * var(--font-scale));
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease;
+}
+
+/* =========================================
+   EN-TÊTE
+   ========================================= */
+
+.app-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+
+    width: 100%;
+    padding: 14px 18px;
+
+    background: var(--primary-color);
+    color: var(--header-text-color);
+
+    box-shadow: var(--shadow);
+}
+
+.app-header h1 {
+    flex: 1;
+    margin: 0;
+    text-align: center;
+    font-size: 1.35rem;
+    overflow-wrap: anywhere;
+}
+
+.app-header button {
+    flex-shrink: 0;
+    background: transparent;
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    padding: 10px 12px;
+}
+
+#businessMenuButton {
+    font-size: 0.9rem;
+}
+
+/* =========================================
+   BOUTONS
+   ========================================= */
+
+button,
+input,
+select,
+textarea {
+    font: inherit;
+}
+
+button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+
+    min-height: 44px;
+    padding: 10px 16px;
+
+    border: none;
+    border-radius: 9px;
+
+    background: var(--primary-color);
+    color: white;
+
+    font-weight: 600;
+    cursor: pointer;
+
+    transition:
+        background-color 0.2s ease,
+        transform 0.1s ease;
+}
+
+button:hover {
+    filter: brightness(0.94);
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+    outline: 3px solid #ffb300;
+    outline-offset: 3px;
+}
+
+button:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+button.secondary {
+    background: var(--surface-color);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+}
+
+button.danger {
+    background: var(--danger-color);
+}
+
+button.success {
+    background: var(--success-color);
+}
+
+/* =========================================
+   MENU DE SÉLECTION DU COMMERCE
+   ========================================= */
+
+#businessMenu {
+    position: relative;
+    z-index: 10;
+
+    width: min(100% - 24px, 500px);
+    margin: 14px auto;
+    padding: 18px;
+
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+
+#businessMenu h2 {
+    margin-top: 0;
+    font-size: 1.15rem;
+}
+
+#businessMenu button {
+    display: flex;
+    width: 100%;
+    margin: 10px 0;
+    text-align: left;
+}
+
+/* =========================================
+   CONTENU PRINCIPAL
+   ========================================= */
+
+#appContent {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+section {
+    width: 100%;
+    margin-bottom: 24px;
+}
+
+section h2 {
+    margin-top: 0;
+    font-size: 1.5rem;
+    line-height: 1.35;
+}
+
+h3 {
+    margin-top: 24px;
+    font-size: 1.15rem;
+}
+
+p {
+    overflow-wrap: anywhere;
+}
+
+/* Respecter l'attribut hidden même si un composant
+   possède normalement un affichage particulier. */
+
+[hidden] {
+    display: none !important;
+}
+
+/* =========================================
+   ACCUEIL
+   ========================================= */
+
+#homePage {
+    padding: 24px;
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+
+#homePage > p {
+    color: var(--secondary-text);
+}
+
+#selectedBusiness {
+    margin-top: 22px;
+    padding: 12px;
+    background: var(--primary-light);
+    border-radius: 8px;
+    color: var(--text-color);
+    font-weight: 600;
+}
+
+.home-buttons {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: 24px;
+}
+
+.home-buttons button {
+    min-height: 58px;
+    padding: 12px;
+}
+
+/* =========================================
+   BOUTON RETOUR
+   ========================================= */
+
+#backContainer {
+    padding: 12px 20px 0;
+}
+
+#backButton {
+    background: var(--surface-color);
+    color: var(--primary-color);
+    border: 1px solid var(--border-color);
+}
+
+/* =========================================
+   FORMULAIRES
+   ========================================= */
+
+form {
+    width: 100%;
+}
+
+fieldset {
+    min-width: 0;
+    margin: 20px 0;
+    padding: 18px;
+
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+}
+
+legend {
+    padding: 0 8px;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+label {
+    display: block;
+    margin-top: 16px;
+    margin-bottom: 6px;
+    font-weight: 600;
+}
+
+input:not([type="range"]):not([type="color"]),
+select,
+textarea {
+    display: block;
+    width: 100%;
+    min-height: 46px;
+    padding: 11px 12px;
+
+    background: var(--surface-color);
+    color: var(--text-color);
+
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+}
+
+input[type="color"] {
+    display: block;
+    width: 100%;
+    height: 50px;
+    margin: 10px 0 20px;
+    padding: 4px;
+
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+}
+
+input[type="range"] {
+    display: block;
+    width: 100%;
+    margin: 18px 0;
+    accent-color: var(--primary-color);
+    cursor: pointer;
+}
+
+input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    accent-color: var(--primary-color);
+}
+
+form button {
+    margin: 8px 8px 8px 0;
+}
+
+/* =========================================
+   PARAMÈTRES
+   ========================================= */
+
+#settingsPage {
+    padding: 22px;
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+
+#settingsPage > label {
+    margin-top: 24px;
+}
+
+#textSizeLabel {
+    color: var(--secondary-text);
+    font-weight: 600;
+}
+
+/* =========================================
+   PAGE À PROPOS
+   ========================================= */
+
+#aboutPage {
+    padding: 24px;
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+
+#aboutPage h3 {
+    padding-bottom: 6px;
+    border-bottom: 2px solid var(--primary-light);
+}
+
+#aboutPage p {
+    line-height: 1.8;
+}
+
+/* =========================================
+   PAGES DES FONCTIONNALITÉS
+   ========================================= */
+
+#featurePage {
+    padding: 22px;
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+
+#featureContent {
+    width: 100%;
+}
+
+.data-list {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.data-card {
+    margin: 12px 0;
+    padding: 16px;
+
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+}
+
+/* =========================================
+   TABLEAUX
+   ========================================= */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--surface-color);
+}
+
+th,
+td {
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    text-align: left;
+}
+
+th {
+    background: var(--primary-light);
+}
+
+/* =========================================
+   MODE SOMBRE
+   ========================================= */
+
+body.dark-mode {
+    --background-color: #121212;
+    --surface-color: #1e1e1e;
+    --text-color: #f1f1f1;
+    --secondary-text: #bdbdbd;
+    --border-color: #424242;
+    --primary-light: #263b50;
+    --shadow: 0 3px 12px rgba(0, 0, 0, 0.25);
+}
+
+body.dark-mode .app-header {
+    background: var(--primary-dark);
+}
+
+body.dark-mode #selectedBusiness {
+    background: var(--primary-light);
+    color: var(--text-color);
+}
+
+body.dark-mode #backButton {
+    background: var(--surface-color);
+    color: var(--text-color);
+}
+
+body.dark-mode th {
+    background: var(--primary-light);
+}
+
+/* =========================================
+   PETITS ÉCRANS
+   ========================================= */
+
+@media (max-width: 600px) {
+    .app-header {
+        gap: 7px;
+        padding: 12px 10px;
+    }
+
+    .app-header h1 {
+        font-size: 1.05rem;
+    }
+
+    #businessMenuButton {
+        padding: 8px;
+        font-size: 0.8rem;
+    }
+
+    .app-header button {
+        padding: 8px;
+    }
+
+    #appContent {
+        padding: 12px;
+    }
+
+    #homePage,
+    #settingsPage,
+    #aboutPage,
+    #featurePage {
+        padding: 16px;
+    }
+
+    .home-buttons {
+        grid-template-columns: 1fr;
+    }
+
+    fieldset {
+        padding: 12px;
+    }
+
+    th,
+    td {
+        padding: 8px;
+    }
+}
+
+/* =========================================
+   ACCESSIBILITÉ
+   ========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        transition: none !important;
+    }
+}

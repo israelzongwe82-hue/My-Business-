@@ -1,0 +1,48 @@
+{
+"name": "my-business",
+"version": "1.0.0",
+"description": "Application de gestion commerciale My Business",
+"main": "main.js",
+"author": "KIBWE ZONGWE Israël",
+"license": "MIT",
+"private": true,
+"scripts": {
+"start": "electron .",
+"build:windows": "electron-builder --win nsis",
+"build:android": "cap sync android"
+},
+"dependencies": {
+"@capacitor/android": "^7.4.3",
+"@capacitor/core": "^7.4.3"
+},
+"devDependencies": {
+"@capacitor/cli": "^7.4.3",
+"electron": "^36.4.0",
+"electron-builder": "^26.0.12"
+},
+"build": {
+"appId": "cd.mybusiness.app",
+"productName": "My Business",
+"directories": {
+"output": "dist"
+},
+"files": [
+"index.html",
+"style.css",
+"app.js",
+"manifest.json",
+"images//*",
+"audios//*",
+"main.js",
+"package.json"
+],
+"win": {
+"target": "nsis",
+"icon": "images/icon.png"
+},
+"nsis": {
+"oneClick": false,
+"allowToChangeInstallationDirectory": true
+}
+}
+}

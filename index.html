@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="My Business : application de gestion commerciale hors ligne."
+    >
+
+    <meta name="theme-color" content="#1565c0">
+
+    <title>My Business</title>
+
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- EN-TÊTE PRINCIPAL -->
+    <header class="app-header">
+
+        <button
+            type="button"
+            id="businessMenuButton"
+            aria-label="Choisir le type de commerce"
+        >
+            ☰ Mon commerce
+        </button>
+
+        <h1>My Business</h1>
+
+        <button
+            type="button"
+            id="settingsButton"
+            aria-label="Paramètres"
+        >
+            ⚙️
+        </button>
+
+    </header>
+
+
+    <!-- MENU DE SÉLECTION DU COMMERCE -->
+    <nav id="businessMenu" hidden>
+
+        <h2>Choisissez votre commerce</h2>
+
+        <button type="button" data-mode="petit">
+            🛒 Petit commerce
+        </button>
+
+        <button type="button" data-mode="general">
+            🏪 Commerce général
+        </button>
+
+        <button type="button" data-mode="entreprise">
+            🏢 Gestion complète d'entreprise
+        </button>
+
+        <button type="button" data-mode="universel">
+            🌍 Application universelle
+        </button>
+
+        <button type="button" id="closeBusinessMenu">
+            Fermer
+        </button>
+
+    </nav>
+
+
+    <!-- BOUTON RETOUR -->
+    <div id="backContainer" hidden>
+
+        <button type="button" id="backButton">
+            ← Retour
+        </button>
+
+    </div>
+
+
+    <!-- CONTENU PRINCIPAL -->
+    <main id="appContent">
+
+        <!-- ACCUEIL -->
+        <section id="homePage">
+
+            <h2>Bienvenue dans My Business !</h2>
+
+            <p>
+                Gérez votre commerce simplement :
+                vos produits, vos ventes, vos dépenses,
+                vos stocks et vos bénéfices.
+            </p>
+
+            <p id="selectedBusiness">
+                Aucun commerce sélectionné.
+            </p>
+
+            <div class="home-buttons">
+
+                <button type="button" id="startButton">
+                    🚀 Commencer
+                </button>
+
+                <button type="button" id="productsButton">
+                    📦 Mes produits
+                </button>
+
+                <button type="button" id="salesButton">
+                    💰 Mes ventes
+                </button>
+
+                <button type="button" id="expensesButton">
+                    💸 Mes dépenses
+                </button>
+
+                <button type="button" id="stockButton">
+                    📊 Mon stock
+                </button>
+
+                <button type="button" id="profitsButton">
+                    📈 Mes bénéfices
+                </button>
+
+                <button type="button" id="historyButton">
+                    📅 Historique
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- CRÉATION DU PROFIL COMMERCIAL -->
+        <section id="profilePage" hidden>
+
+            <h2>Créer mon commerce</h2>
+
+            <p>
+                Renseignez les informations nécessaires
+                avant de commencer à gérer votre activité.
+            </p>
+
+            <form id="businessProfileForm">
+
+                <fieldset>
+
+                    <legend>Identité du propriétaire</legend>
+
+                    <label for="ownerName">Nom</label>
+                    <input
+                        type="text"
+                        id="ownerName"
+                        name="ownerName"
+                        autocomplete="family-name"
+                        required
+                    >
+
+                    <label for="ownerPostname">Postnom</label>
+                    <input
+                        type="text"
+                        id="ownerPostname"
+                        name="ownerPostname"
+                        required
+                    >
+
+                    <label for="ownerFirstname">Prénom</label>
+                    <input
+                        type="text"
+                        id="ownerFirstname"
+                        name="ownerFirstname"
+                        autocomplete="given-name"
+                        required
+                    >
+
+                    <label for="ownerBirthdate">
+                        Date de naissance
+                    </label>
+
+                    <input
+                        type="date"
+                        id="ownerBirthdate"
+                        name="ownerBirthdate"
+                        required
+                    >
+
+                    <label for="ownerCountry">Pays</label>
+
+                    <select
+                        id="ownerCountry"
+                        name="ownerCountry"
+                        required
+                    >
+                        <option value="">
+                            Choisissez votre pays
+                        </option>
+
+                        <option value="CD">
+                            République démocratique du Congo
+                        </option>
+
+                        <option value="ZM">Zambie</option>
+                        <option value="AO">Angola</option>
+                        <option value="RW">Rwanda</option>
+                        <option value="FR">France</option>
+                        <option value="OTHER">Autre pays</option>
+                    </select>
+
+                    <label for="ownerPhone">
+                        Téléphone (facultatif)
+                    </label>
+
+                    <input
+                        type="tel"
+                        id="ownerPhone"
+                        name="ownerPhone"
+                        autocomplete="tel"
+                    >
+
+                </fieldset>
+
+
+                <fieldset>
+
+                    <legend>Informations sur le commerce</legend>
+
+                    <label for="businessName">
+                        Nom du commerce ou de l'entreprise
+                    </label>
+
+                    <input
+                        type="text"
+                        id="businessName"
+                        name="businessName"
+                        required
+                    >
+
+                    <label for="businessActivity">
+                        Type d'activité
+                    </label>
+
+                    <input
+                        type="text"
+                        id="businessActivity"
+                        name="businessActivity"
+                        placeholder="Ex. : vente de vêtements"
+                        required
+                    >
+
+                    <label for="businessAddress">
+                        Adresse ou lieu d'activité (facultatif)
+                    </label>
+
+                    <input
+                        type="text"
+                        id="businessAddress"
+                        name="businessAddress"
+                    >
+
+                    <label for="businessCurrency">
+                        Devise utilisée
+                    </label>
+
+                    <select
+                        id="businessCurrency"
+                        name="businessCurrency"
+                        required
+                    >
+                        <option value="CDF">
+                            FC — Franc congolais
+                        </option>
+
+                        <option value="USD">
+                            USD — Dollar américain
+                        </option>
+
+                        <option value="ZMW">
+                            ZMW — Kwacha zambien
+                        </option>
+
+                        <option value="EUR">
+                            EUR — Euro
+                        </option>
+                    </select>
+
+                </fieldset>
+
+                <button type="submit">
+                    Enregistrer et continuer
+                </button>
+
+                <button type="button" id="cancelProfileButton">
+                    Annuler
+                </button>
+
+            </form>
+
+        </section>
+
+
+        <!-- PARAMÈTRES -->
+        <section id="settingsPage" hidden>
+
+            <h2>⚙️ Paramètres</h2>
+
+            <label for="themeColor">
+                🎨 Couleur de l'application
+            </label>
+
+            <input
+                type="color"
+                id="themeColor"
+                value="#1565c0"
+            >
+
+            <label for="textSize">
+                🔠 Taille du texte
+            </label>
+
+            <input
+                type="range"
+                id="textSize"
+                min="80"
+                max="160"
+                value="100"
+                step="5"
+            >
+
+            <p id="textSizeLabel">Taille normale</p>
+
+            <label for="appearanceMode">
+                🌙 Apparence
+            </label>
+
+            <select id="appearanceMode">
+
+                <option value="light">☀️ Mode clair</option>
+
+                <option value="dark">🌙 Mode sombre</option>
+
+                <option value="auto">📱 Mode automatique</option>
+
+            </select>
+
+            <label for="languageSelect">
+                🌍 Langue
+            </label>
+
+            <select id="languageSelect">
+
+                <option value="fr">Français</option>
+
+                <option value="en">English</option>
+
+            </select>
+
+            <button type="button" id="resetAppearanceButton">
+                Réinitialiser l'apparence
+            </button>
+
+            <button type="button" id="aboutButton">
+                ℹ️ À propos de l'application
+            </button>
+
+        </section>
+
+
+        <!-- À PROPOS -->
+        <section id="aboutPage" hidden>
+
+            <h2>À propos de My Business</h2>
+
+            <h3>Présentation</h3>
+
+            <p>
+                My Business est une application conçue pour
+                aider les commerçants et les entrepreneurs
+                à organiser leurs activités.
+            </p>
+
+            <h3>Importance de l'application</h3>
+
+            <p>
+                Elle a pour objectif de faciliter la gestion
+                des produits, des stocks, des ventes,
+                des dépenses et des bénéfices.
+            </p>
+
+            <p>
+                Elle vise également à aider les utilisateurs
+                à mieux suivre leurs activités et à prendre
+                des décisions commerciales éclairées.
+            </p>
+
+            <h3>Créateur</h3>
+
+            <p>
+                <strong>KIBWE ZONGWE Israël</strong>
+            </p>
+
+            <p>
+                Passionné par l'informatique et le développement
+                d'applications, le créateur souhaite rendre
+                les outils numériques plus accessibles.
+            </p>
+
+            <h3>Notre vision</h3>
+
+            <p>
+                My Business ambitionne de devenir un outil
+                pratique, simple et accessible pour accompagner
+                les commerçants et les entrepreneurs.
+            </p>
+
+            <p>
+                <strong>
+                    My Business — Votre commerce,
+                    votre organisation, votre avenir.
+                </strong>
+            </p>
+
+        </section>
+
+
+        <!-- ESPACE DES FONCTIONNALITÉS COMMERCIALES -->
+        <section id="featurePage" hidden>
+
+            <h2 id="featureTitle"></h2>
+
+            <div id="featureContent"></div>
+
+        </section>
+
+    </main>
+
+
+    <!-- FICHIER JAVASCRIPT -->
+    <script src="app.js"></script>
+
+</body>
+</html>
