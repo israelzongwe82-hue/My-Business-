@@ -86,9 +86,6 @@ jobs:
       - name: Generate native icons and splash
         run: npx capacitor-assets generate --android
 
-      - name: Install Android SDK
-        uses: android-actions/setup-android@v3
-
       - name: Synchronize Android
         run: npx cap sync android
 
