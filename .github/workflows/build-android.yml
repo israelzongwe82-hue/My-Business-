@@ -42,16 +42,44 @@ steps:
   - name: Installer les dépendances
     run: npm install
 
-  - name: Vérifier la configuration Capacitor
-    run: npx cap --version
-
-  - name: Préparer Android
+  - name: Vérifier les images originales
     run: |
-      npx cap add android
-      npx cap sync android
+      test -f images/icon.png
+      test -f images/splash.png
 
-  - name: Configurer Android SDK
-    uses: android-actions/setup-android@v3
+  - name: Installer ImageMagick
+    run: |
+      sudo apt-get update
+      sudo apt-get install -y imagemagick
+
+  - name: Préparer les images Android
+    run: |
+      mkdir -p assets
+
+      cp images/icon.png assets/icon-only.png
+      cp images/icon.png assets/icon-foreground.png
+
+      convert -size 1024x1024 xc:'#1565c0' \
+        assets/icon-background.png
+
+      convert images/splash.png \
+        -resize 2732x2732 \
+        -background '#1565c0' \
+        -gravity center \
+        -extent 2732x2732 \
+        assets/splash.png
+
+  - name: Installer le générateur de ressources
+    run: npm install --save-dev @capacitor/assets
+
+  - name: Ajouter la plateforme Android
+    run: npx cap add android
+
+  - name: Générer les icônes et le splash natifs
+    run: npx capacitor-assets generate --android
+
+  - name: Synchroniser Capacitor
+    run: npx cap sync android
 
   - name: Construire l'APK
     run: |
