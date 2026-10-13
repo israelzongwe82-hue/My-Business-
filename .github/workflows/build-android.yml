@@ -47,15 +47,21 @@ steps:
       mkdir -p www
       cp index.html style.css app.js manifest.json www/
       cp -r images www/images
-      if [ -d audios ]; then cp -r audios www/audios; fi
-      if [ -d audio ]; then cp -r audio www/audio; fi
+
+      if [ -d audios ]; then
+        cp -r audios www/audios
+      fi
+
+      if [ -d audio ]; then
+        cp -r audio www/audio
+      fi
 
   - name: Install ImageMagick
     run: |
       sudo apt-get update
       sudo apt-get install -y imagemagick
 
-  - name: Prepare native image assets
+  - name: Prepare Android image assets
     run: |
       mkdir -p assets
 
@@ -64,12 +70,7 @@ steps:
         -background '#1565c0' \
         -gravity center \
         -extent 1024x1024 \
-        assets/icon-only.png
-
-      cp assets/icon-only.png assets/icon-foreground.png
-
-      convert -size 1024x1024 xc:'#1565c0' \
-        assets/icon-background.png
+        assets/icon.png
 
       convert images/splash.png \
         -resize 2732x2732 \
