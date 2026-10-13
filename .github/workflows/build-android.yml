@@ -1,98 +1,106 @@
 name: Build My Business Android
 
-"on": [push, workflow_dispatch]
-
-permissions:
-contents: read
+on: [push, workflow_dispatch]
 
 jobs:
-build-android:
-name: Build Android APK
-runs-on: ubuntu-latest
+  build:
+    name: Build Android APK
+    runs-on: ubuntu-latest
 
-steps:
-  - name: Checkout repository
-    uses: actions/checkout@v4
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-  - name: Setup Node.js
-    uses: actions/setup-node@v4
-    with:
-      node-version: "22"
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
 
-  - name: Setup Java
-    uses: actions/setup-java@v4
-    with:
-      distribution: temurin
-      java-version: "21"
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
 
-  - name: Check required files
-    run: |
-      test -f index.html
-      test -f style.css
-      test -f app.js
-      test -f package.json
-      test -f capacitor.config.json
-      test -f images/icon.png
-      test -f images/splash.png
+      - name: Verify required files
+        run: |
+          test -f index.html
+          test -f style.css
+          test -f app.js
+          test -f package.json
+          test -f capacitor.config.json
+          test -f images/icon.png
+          test -f images/splash.png
 
-  - name: Install dependencies
-    run: npm install
+      - name: Install dependencies
+        run: npm install
 
-  - name: Prepare web application
-    run: |
-      mkdir -p www
-      cp index.html style.css app.js manifest.json www/
-      cp -r images www/images
-      if [ -d audios ]; then cp -r audios www/audios; fi
-      if [ -d audio ]; then cp -r audio www/audio; fi
+      - name: Prepare web files
+        run: |
+          mkdir -p www
+          cp index.html style.css app.js manifest.json www/
+          cp -r images www/images
 
-  - name: Install ImageMagick
-    run: |
-      sudo apt-get update
-      sudo apt-get install -y imagemagick
+          if [ -d audios ]; then
+            cp -r audios www/audios
+          fi
 
-  - name: Prepare image assets
-    run: |
-      mkdir -p assets
+          if [ -d audio ]; then
+            cp -r audio www/audio
+          fi
 
-      convert images/icon.png \
-        -resize 1024x1024 \
-        -background '#1565c0' \
-        -gravity center \
-        -extent 1024x1024 \
-        assets/icon.png
+      - name: Install ImageMagick
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y imagemagick
 
-      convert images/splash.png \
-        -resize 2732x2732 \
-        -background '#1565c0' \
-        -gravity center \
-        -extent 2732x2732 \
-        assets/splash.png
+      - name: Prepare native images
+        run: |
+          mkdir -p assets
 
-  - name: Install Capacitor Assets
-    run: npm install --save-dev @capacitor/assets
+          convert images/icon.png \
+            -resize 1024x1024 \
+            -background '#1565c0' \
+            -gravity center \
+            -extent 1024x1024 \
+            assets/icon-only.png
 
-  - name: Add Android platform
-    run: npx cap add android
+          cp assets/icon-only.png assets/icon-foreground.png
 
-  - name: Generate Android icons and splash
-    run: npx capacitor-assets generate --android
+          convert -size 1024x1024 xc:'#1565c0' \
+            assets/icon-background.png
 
-  - name: Setup Android SDK
-    uses: android-actions/setup-android@v3
+          convert images/splash.png \
+            -resize 2732x2732 \
+            -background '#1565c0' \
+            -gravity center \
+            -extent 2732x2732 \
+            assets/splash.png
 
-  - name: Sync Capacitor
-    run: npx cap sync android
+      - name: Install Capacitor Assets
+        run: npm install --save-dev @capacitor/assets
 
-  - name: Build APK
-    run: |
-      cd android
-      chmod +x gradlew
-      ./gradlew assembleDebug
+      - name: Add Android platform
+        run: npx cap add android
 
-  - name: Upload APK
-    uses: actions/upload-artifact@v4
-    with:
-      name: My-Business-Android-APK
-      path: android/app/build/outputs/apk/debug/app-debug.apk
-      if-no-files-found: error
+      - name: Generate native icons and splash
+        run: npx capacitor-assets generate --android
+
+      - name: Install Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Synchronize Android
+        run: npx cap sync android
+
+      - name: Build APK
+        run: |
+          cd android
+          chmod +x gradlew
+          ./gradlew assembleDebug
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: My-Business-Android-APK
+          path: android/app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
