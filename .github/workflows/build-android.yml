@@ -1,10 +1,6 @@
 name: Build My Business Android
 
-"on":
-workflow_dispatch:
-push:
-branches:
-- main
+"on": [push, workflow_dispatch]
 
 permissions:
 contents: read
@@ -21,7 +17,7 @@ steps:
   - name: Setup Node.js
     uses: actions/setup-node@v4
     with:
-      node-version: 22
+      node-version: "22"
 
   - name: Setup Java
     uses: actions/setup-java@v4
@@ -47,21 +43,15 @@ steps:
       mkdir -p www
       cp index.html style.css app.js manifest.json www/
       cp -r images www/images
-
-      if [ -d audios ]; then
-        cp -r audios www/audios
-      fi
-
-      if [ -d audio ]; then
-        cp -r audio www/audio
-      fi
+      if [ -d audios ]; then cp -r audios www/audios; fi
+      if [ -d audio ]; then cp -r audio www/audio; fi
 
   - name: Install ImageMagick
     run: |
       sudo apt-get update
       sudo apt-get install -y imagemagick
 
-  - name: Prepare Android image assets
+  - name: Prepare image assets
     run: |
       mkdir -p assets
 
